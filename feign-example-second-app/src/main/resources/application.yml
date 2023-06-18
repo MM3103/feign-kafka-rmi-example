@@ -1,2 +1,10 @@
 server:
   port: 8485
+keycloak:
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080/auth}
+  realm: ${KEYCLOAK_REALM:my_realm}
+  resource: ${KEYCLOAK_RESOURCE:my_client}
+  public-client: true
+spring:
+  application:
+    name: ${APPLICATION_NAME:Feign-Example}
