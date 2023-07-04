@@ -1,16 +1,20 @@
 package common.model;
 
+import common.model.enums.CoverType;
+import common.model.enums.GenreType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
 public class Book {
-
     String name;
 
-    String author;
+    Person author;
 
     Integer size;
 
+    CoverType cover;
+
+    GenreType genre;
 }
