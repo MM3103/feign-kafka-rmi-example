@@ -1,0 +1,4 @@
+server:
+  port: 8484
+topic:
+  name: t.food.order
