@@ -42,8 +42,8 @@ public class WebSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/book/createBook").hasRole("ADMIN")
-                .antMatchers("/book/getBook").hasAnyRole("USER","ADMIN")
+                .antMatchers("/food/createFood").hasRole("ADMIN")
+                .antMatchers("/food/getSalad").hasAnyRole("USER","ADMIN")
                 .antMatchers("/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs",
