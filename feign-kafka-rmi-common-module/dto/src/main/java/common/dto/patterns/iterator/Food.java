@@ -1,4 +1,4 @@
-package common.dto;
+package common.dto.patterns.iterator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,12 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
-
+public class Food {
     String name;
-
-    String author;
-
-    Integer size;
-
+    Integer cost;
+    Integer weight;
 }

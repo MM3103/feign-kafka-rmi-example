@@ -20,11 +20,14 @@ public class Consumer {
 
     @KafkaListener(topics = orderTopic)
     public void consumeMessage(String message) throws JsonProcessingException {
-        log.info("message consumed {}", message);
+        log.info("Получен заказ {}", message);
 
         FoodOrder foodOrder = objectMapper.readValue(message, FoodOrder.class);
 
-        log.info("New order is ready: " + foodOrder.getItem() + ", count: " + foodOrder.getAmount());
+        log.info("Получен новый заказ: Закуска: " + foodOrder.getSnack().getName() +
+                ", суп: " + foodOrder.getSoup().getName() +
+                ", основное блюдо: " + foodOrder.getEntree().getName() +
+                ", десерт: " + foodOrder.getDessert().getName());
     }
 
 }
