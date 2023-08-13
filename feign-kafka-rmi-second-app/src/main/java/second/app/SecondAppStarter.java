@@ -1,12 +1,17 @@
 package second.app;
 
+import common.api.RemoteService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import second.app.rmi.RemoteServiceImpl;
 
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -21,7 +26,7 @@ public class SecondAppStarter {
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
 
         final ApplicationContext ctx = SpringApplication.run(SecondAppStarter.class, args);
 
@@ -39,5 +44,11 @@ public class SecondAppStarter {
         log.info("*****************************************");
         log.info("***** FeignClientExample second application started *****");
         log.info("*****************************************");
+
+        RemoteService remoteService = new RemoteServiceImpl();
+        Registry registry = LocateRegistry.createRegistry(1099);
+        registry.rebind("RemoteService", remoteService);
+
+        log.info("RMI server started");
     }
 }

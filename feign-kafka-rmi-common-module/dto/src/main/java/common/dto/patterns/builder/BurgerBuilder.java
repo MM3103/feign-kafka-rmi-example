@@ -15,7 +15,6 @@ public interface BurgerBuilder {
 
     public BurgerBuilder putCheese();
 
-    // Выпуск автомобиля
-
+    // Выпуск бургера
     public Burger build();
 }

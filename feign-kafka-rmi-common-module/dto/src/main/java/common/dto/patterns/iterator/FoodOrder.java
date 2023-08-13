@@ -8,13 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public class FoodOrder implements Iterable<Food>, Package {
+public class FoodOrder implements Serializable,Iterable<Food>, Package {
     Food snack;
     Food soup;
     Food entree;
