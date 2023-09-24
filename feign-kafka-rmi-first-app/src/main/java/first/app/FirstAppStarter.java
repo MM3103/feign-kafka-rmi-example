@@ -38,7 +38,7 @@ public class FirstAppStarter {
         }
 
         log.info("*****************************************");
-        log.info("***** FeignClientApplication first application started *****");
+        log.info("***** FeignClient-Kafka-RMI-Example first application started *****");
         log.info("*****************************************");
     }
 }

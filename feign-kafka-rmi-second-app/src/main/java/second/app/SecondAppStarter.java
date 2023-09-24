@@ -41,14 +41,14 @@ public class SecondAppStarter {
             log.debug("BeanName {}", beanName);
         }
 
-        log.info("*****************************************");
-        log.info("***** FeignClientExample second application started *****");
-        log.info("*****************************************");
-
         RemoteService remoteService = new RemoteServiceImpl();
         Registry registry = LocateRegistry.createRegistry(1099);
         registry.rebind("RemoteService", remoteService);
 
         log.info("RMI server started");
+
+        log.info("*****************************************");
+        log.info("***** FeignClient-Kafka-RMI-Example second application started *****");
+        log.info("*****************************************");
     }
 }
