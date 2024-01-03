@@ -1,8 +1,7 @@
 version: "3.7"
 
 networks:
-  kafka-net:
-    name: kafka-net
+  net:
     driver: bridge
 
 services:
@@ -11,7 +10,7 @@ services:
     container_name: zookeeper
     restart: "no"
     networks:
-      - kafka-net
+      - net
     ports:
       - "2181:2181"
 
@@ -20,7 +19,7 @@ services:
     container_name: kafka
     restart: "no"
     networks:
-      - kafka-net
+      - net
     ports:
       - "9092:9092"
     environment:
@@ -39,7 +38,7 @@ services:
     container_name: kafdrop
     restart: "no"
     networks:
-      - kafka-net
+      - net
     ports:
       - "9000:9000"
     environment:
@@ -61,4 +60,28 @@ services:
     volumes:
       - ./keycloak:/tmp/keycloak
     networks:
-      - kafka-net
+      - net
+
+  feign-kafka-rmi-first-app:
+    image: feign-kafka-rmi-first-app:1.0
+    ports:
+      - 8484:8484
+    depends_on:
+      - keycloak-dev
+      - kafka
+    networks:
+      - net
+
+  feign-kafka-rmi-second-app:
+    image: feign-kafka-rmi-second-app:1.0
+    ports:
+      - 8485:8485
+    environment:
+      - KEYCLOAK_URL=http://keycloak-dev:8080/auth
+      - KEYCLOAK_REALM=my_realm
+      - KEYCLOAK_RESOURCE=my_client
+    depends_on:
+      - keycloak-dev
+      - kafka
+    networks:
+      - net
