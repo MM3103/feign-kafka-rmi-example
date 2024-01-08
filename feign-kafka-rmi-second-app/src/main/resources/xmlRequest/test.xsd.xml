@@ -1,0 +1,5 @@
+<ns:TestRequest xmlns:ns="urn://test/1.0.0">
+  <ns:FoodName>string</ns:FoodName>
+  <ns:Cost>10</ns:Cost>
+  <ns:Weight>10</ns:Weight>
+</ns:TestRequest>

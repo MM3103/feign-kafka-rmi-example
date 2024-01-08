@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns:ct="urn://test/1.0.0"
+		   targetNamespace="urn://test/1.0.0"
+		   elementFormDefault="qualified">
+
+	<xs:complexType name="TestRequestType">
+		<xs:sequence>
+			<xs:element name="FoodName">
+				<xs:annotation>
+					<xs:documentation xml:lang="ru">Название блюда</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[\dA-Z ]{1,20}" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Cost"    type="xs:long"/>
+			<xs:element name="Weight"    type="xs:long"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="TestRequest" type="ct:TestRequestType" />
+
+</xs:schema>

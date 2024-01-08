@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/feignJsonExample")
 @RequiredArgsConstructor
-public class FoodController {
+public class FeignClientJsonExampleController {
 
     private final FoodFeignClient foodFeignClient;
 
-    @GetMapping("/getSalad")
+    @GetMapping("/getJsonExample")
     public Food getSalad(){
         return foodFeignClient.getSalad();
     }
 
-    @PostMapping("/createFood")
+    @PostMapping("/postJsonExample")
     public Food createFood(@RequestBody Food food){
         return foodFeignClient.createFood(food);
     }
