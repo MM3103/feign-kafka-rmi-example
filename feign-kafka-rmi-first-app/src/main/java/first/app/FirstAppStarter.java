@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import java.util.TimeZone;
 @Slf4j
 @OpenAPIDefinition(info = @Info(title = "Project Api", version = "1.0", description = "First app"))
 @EnableFeignClients
+@EnableScheduling
 public class FirstAppStarter {
     /**
      * The entry point of application.

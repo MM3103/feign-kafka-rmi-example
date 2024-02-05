@@ -1,7 +1,7 @@
 package first.app.controller;
 
 import common.dto.patterns.iterator.Food;
-import first.app.feign.FoodFeignClient;
+import first.app.api.FeignClientJsonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/feignJsonExample")
 @RequiredArgsConstructor
-public class FoodController {
+public class FeignClientJsonExampleController {
 
-    private final FoodFeignClient foodFeignClient;
+    private final FeignClientJsonService feignClientJsonService;
 
-    @GetMapping("/getSalad")
-    public Food getSalad(){
-        return foodFeignClient.getSalad();
+    @GetMapping("/getJsonExample")
+    public Food getSalad() {
+        return feignClientJsonService.getSalad();
     }
 
-    @PostMapping("/createFood")
-    public Food createFood(@RequestBody Food food){
-        return foodFeignClient.createFood(food);
+    @PostMapping("/postJsonExample")
+    public Food createFood(@RequestBody Food food) {
+        return feignClientJsonService.createFood(food);
     }
 
 }

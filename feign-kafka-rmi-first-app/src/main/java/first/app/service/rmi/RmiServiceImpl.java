@@ -1,4 +1,4 @@
-package first.app.rmi;
+package first.app.service.rmi;
 
 import common.api.RemoteService;
 import common.dto.FoodOrder;

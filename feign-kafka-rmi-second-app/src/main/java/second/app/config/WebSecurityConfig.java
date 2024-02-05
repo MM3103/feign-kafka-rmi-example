@@ -43,7 +43,7 @@ public class WebSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/food/createFood").hasRole("ADMIN")
-                .antMatchers("/food/getSalad").hasAnyRole("USER","ADMIN")
+                .antMatchers("/food/getSalad", "/foodXml/*",  "/foodProtobuf/*").hasAnyRole("USER","ADMIN")
                 .antMatchers("/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs",

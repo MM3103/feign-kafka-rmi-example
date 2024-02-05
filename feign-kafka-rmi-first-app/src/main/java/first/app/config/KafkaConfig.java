@@ -2,7 +2,8 @@ package first.app.config;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.kafka.common.serialization.ByteArraySerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,6 @@ public class KafkaConfig {
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
-        // get configs on application.properties/yml
         Map<String, Object> properties = kafkaProperties.buildProducerProperties();
         return new DefaultKafkaProducerFactory<>(properties);
     }
@@ -32,9 +32,33 @@ public class KafkaConfig {
     }
 
     @Bean
-    public NewTopic topic() {
+    public ProducerFactory<String, byte[]> producerFactoryByteArray() {
+        return new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(), new StringSerializer(), new ByteArraySerializer());
+    }
+
+    @Bean
+    public KafkaTemplate<String, byte[]> kafkaTemplateByteArray() {
+        return new KafkaTemplate<>(producerFactoryByteArray());
+    }
+
+    @Bean
+    public NewTopic topicJson() {
+        return getTopic("t.food.order");
+    }
+
+    @Bean
+    public NewTopic topicXml() {
+        return getTopic("t.food.orderXml");
+    }
+
+    @Bean
+    public NewTopic topicProtobuf() {
+        return getTopic("t.food.orderProtobuf");
+    }
+
+    private NewTopic getTopic(String topicName) {
         return TopicBuilder
-                .name("t.food.order")
+                .name(topicName)
                 .partitions(1)
                 .replicas(1)
                 .build();

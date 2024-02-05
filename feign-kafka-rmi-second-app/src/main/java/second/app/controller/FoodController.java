@@ -16,7 +16,7 @@ public class FoodController {
     @GetMapping("/getSalad")
     public Food getSalad(){
         Food food = new Food("Салат",100,150);
-        log.info("Выдано новое блюдло " + food.getName());
+        log.info("Выдано новое блюдо " + food.getName());
         return food;
     }
 

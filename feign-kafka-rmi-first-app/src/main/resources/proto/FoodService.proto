@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/empty.proto";
+
+import "FoodProto.proto";
+
+service FoodService {
+
+  rpc getFood(FoodProtoBuf) returns (FoodProtoBuf) {};
+}

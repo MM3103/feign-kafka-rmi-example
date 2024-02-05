@@ -1,0 +1,8 @@
+syntax = "proto3";
+package proto;
+
+message FoodProtoBuf {
+  string name = 1;
+  int64 cost = 2;
+  int64 weight = 3;
+}
