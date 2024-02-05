@@ -1,29 +1,27 @@
 package first.app.controller;
 
-import first.app.FoodProto;
-import first.app.feign.FoodProtobufFeignClient;
+import first.app.api.FeignClientProtobufService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import proto.FoodProto;
 
 @RestController
 @RequestMapping("/feignProtobufExample")
 @RequiredArgsConstructor
 public class FeignClientProtobufExampleController {
 
-    private final FoodProtobufFeignClient foodProtobufFeignClient;
+    private final FeignClientProtobufService feignClientProtobufService;
 
     @GetMapping("/getProtobufExample")
     public FoodProto.FoodProtoBuf getSalad() {
-        return foodProtobufFeignClient.getSalad();
+        return feignClientProtobufService.getSalad();
     }
 
-    @PostMapping("/postProtobufExample")
-    public FoodProto.FoodProtoBuf createFood(@RequestBody FoodProto.FoodProtoBuf food) {
-        return foodProtobufFeignClient.createFood(food);
+    @GetMapping(value = "/postProtobufExample", produces = "application/x-protobuf")
+    public FoodProto.FoodProtoBuf createFood() {
+        return feignClientProtobufService.createFood();
     }
 
 }

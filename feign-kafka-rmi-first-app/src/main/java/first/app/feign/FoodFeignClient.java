@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * Test feign client.
+ * Test feign client with JSON.
  */
 @FeignClient(value = "feignDemo", url = "localhost:8485/food", configuration = FeignConfig.class)
 public interface FoodFeignClient {

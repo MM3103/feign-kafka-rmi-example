@@ -1,6 +1,8 @@
 package second.app;
 
 import common.api.RemoteService;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import second.app.rmi.RemoteServiceImpl;
+import second.app.service.FoodServiceImpl;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Arrays;
@@ -26,7 +29,7 @@ public class SecondAppStarter {
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         final ApplicationContext ctx = SpringApplication.run(SecondAppStarter.class, args);
 
@@ -44,6 +47,13 @@ public class SecondAppStarter {
         RemoteService remoteService = new RemoteServiceImpl();
         Registry registry = LocateRegistry.createRegistry(1099);
         registry.rebind("RemoteService", remoteService);
+
+        Server server = ServerBuilder.forPort(9022)
+                .addService(new FoodServiceImpl())
+                .build();
+
+        server.start();
+        server.awaitTermination();
 
         log.info("RMI server started");
 

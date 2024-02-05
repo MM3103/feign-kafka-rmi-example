@@ -1,37 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		   xmlns:ct="urn://test/1.0.0"
-		   targetNamespace="urn://test/1.0.0"
-		   elementFormDefault="qualified"
-		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-		   jaxb:version="2.0"
-		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-		   jaxb:extensionBindingPrefixes="xjc">
+<xsd:schema xmlns:cd="urn://test/1.0.0"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="urn://test/1.0.0"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified" version="v001">
 
-	<xs:complexType name="TestRequestType">
-		<xs:annotation>
-			<xs:appinfo>
-				<jaxb:globalBindings>
-					<xjc:simple/>
-				</jaxb:globalBindings>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="FoodName">
-				<xs:annotation>
-					<xs:documentation xml:lang="ru">Название блюда</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:pattern value="[\dA-Z ]{1,20}" />
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="Cost"    type="xs:long"/>
-			<xs:element name="Weight"    type="xs:long"/>
-		</xs:sequence>
-	</xs:complexType>
+    <xsd:element name="TestRequestType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Второе гражданство заявителя: указывается полное название государства на русском языке.
+            </xsd:documentation>
+        </xsd:annotation>
 
-	<xs:element name="TestRequest" type="ct:TestRequestType" />
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="FoodName" type="cd:SimpleStringType">
+                    <xsd:annotation>
+                        <xsd:documentation xml:lang="ru">
+							Название блюда
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+				<xsd:element name="Cost" type="xsd:long">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="ru">
+							Цена
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Weight" type="xsd:long">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="ru">
+							Вес
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
-</xs:schema>
+    <xsd:simpleType name="SimpleStringType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Произвольная строка.
+                Данный тип используется, например, в определении имени опрератора в разделе информации о клонировании.
+                Отличается от MiddleStringType наличием полного латинского алфавита.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[a-zA-Zа-яА-ЯёЁ\d\s\(\)\?\.&quot;,#№:;\-\+/'*&lt;&gt;&amp;]{1,255}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

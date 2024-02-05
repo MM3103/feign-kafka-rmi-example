@@ -11,5 +11,11 @@ spring:
   kafka:
     consumer:
       group-id: "default"
+      bootstrap-servers: DOCKER_EXTERNAL://:9092
 topic:
-  name: t.food.order
+  json:
+    name: t.food.order
+  xml:
+    name: t.food.orderXml
+  protobuf:
+    name: t.food.orderProtobuf
