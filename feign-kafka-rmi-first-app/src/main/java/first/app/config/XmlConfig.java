@@ -10,32 +10,21 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /**
- * Конфигурация bean для ЕПГУ.
+ * Конфигурация bean.
  */
 @Configuration
 public class XmlConfig {
 
-    /**
-     * @return ObjectFactory для ЕПГУ.
-     */
     @Bean
     public ObjectFactory creatorObjectFactory() {
         return new ObjectFactory();
     }
 
-    /**
-     * @return JAXBContext для ЕПГУ.
-     * @throws JAXBException
-     */
     @Bean
     public JAXBContext creatorJaxbContext() throws JAXBException {
         return JAXBContext.newInstance(ObjectFactory.class);
     }
 
-    /**
-     * @return Marshaller для ЕПГУ.
-     * @throws JAXBException
-     */
     @Bean
     public Marshaller creatorMarshaller() throws JAXBException {
         JAXBContext jaxbContext = creatorJaxbContext();
@@ -43,11 +32,7 @@ public class XmlConfig {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         return marshaller;
     }
-
-    /**
-     * @return Unmarshaller для ЕПГУ.
-     * @throws JAXBException
-     */
+    
     @Bean
     public Unmarshaller creatorElkUnmarshaller() throws JAXBException {
         JAXBContext jaxbContext = creatorJaxbContext();

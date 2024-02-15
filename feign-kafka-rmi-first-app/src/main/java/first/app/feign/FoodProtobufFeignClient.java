@@ -9,13 +9,13 @@ import proto.FoodProto;
 /**
  * Test feign client with ProtoBuf.
  */
-@FeignClient(value = "feignDemoProtobuf", url = "localhost:8485/foodProtobuf", configuration = FeignConfig.class)
+@FeignClient(value = "feignDemoProtobuf", url = "${secondApp.url}", configuration = FeignConfig.class)
 public interface FoodProtobufFeignClient {
 
-    @GetMapping(value = "/getSaladProtobuf")
+    @GetMapping(value = "/foodProtobuf/getSaladProtobuf")
     FoodProto.FoodProtoBuf getSalad();
 
-    @PostMapping(value = "/createFoodProtobuf", consumes = "application/x-protobuf", produces = "application/x-protobuf")
+    @PostMapping(value = "/foodProtobuf/createFoodProtobuf", consumes = "application/x-protobuf", produces = "application/x-protobuf")
     FoodProto.FoodProtoBuf createFood(FoodProto.FoodProtoBuf food);
 
 }

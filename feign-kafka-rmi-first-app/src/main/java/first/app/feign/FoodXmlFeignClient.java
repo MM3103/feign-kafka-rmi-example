@@ -10,13 +10,13 @@ import test._1_0.TestRequestType;
 /**
  * Test feign client with XML.
  */
-@FeignClient(value = "feignDemoXml", url = "localhost:8485/foodXml", configuration = FeignConfig.class)
+@FeignClient(value = "feignDemoXml", url = "${secondApp.url}", configuration = FeignConfig.class)
 public interface FoodXmlFeignClient {
 
-    @GetMapping(value = "/getSaladXml")
+    @GetMapping(value = "/foodXml/getSaladXml")
     TestRequestType getSalad();
 
-    @PostMapping(value = "/createFoodXml", consumes = "application/xml")
+    @PostMapping(value = "/foodXml/createFoodXml", consumes = "application/xml")
     TestRequestType createFood(@RequestBody TestRequestType food);
 
 }

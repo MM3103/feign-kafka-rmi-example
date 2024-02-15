@@ -3,6 +3,7 @@ package first.app.service.rmi;
 import common.api.RemoteService;
 import common.dto.FoodOrder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.rmi.NotBoundException;
@@ -14,11 +15,14 @@ import java.rmi.registry.Registry;
 @Slf4j
 public class RmiServiceImpl implements RemoteService {
 
+    @Value("${secondApp.name}")
+    private String name;
+
     @Override
     public Integer setCostFoodOrder(FoodOrder foodOrder) {
         Integer result = null;
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            Registry registry = LocateRegistry.getRegistry(name, 1099);
             RemoteService remoteService = (RemoteService) registry.lookup("RemoteService");
 
             result = remoteService.setCostFoodOrder(foodOrder);

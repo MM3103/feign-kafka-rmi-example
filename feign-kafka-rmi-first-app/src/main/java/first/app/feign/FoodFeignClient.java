@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 /**
  * Test feign client with JSON.
  */
-@FeignClient(value = "feignDemo", url = "localhost:8485/food", configuration = FeignConfig.class)
+@FeignClient(value = "feignDemo", url = "${secondApp.url}", configuration = FeignConfig.class)
 public interface FoodFeignClient {
 
-    @GetMapping("/getSalad")
+    @GetMapping("food/getSalad")
     Food getSalad();
 
-    @PostMapping("/createFood")
+    @PostMapping("food/createFood")
     Food createFood(Food food);
 
 }
