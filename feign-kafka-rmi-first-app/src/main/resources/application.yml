@@ -1,5 +1,15 @@
 server:
   port: 8484
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+firstApp:
+  name: ${FIRST_NAME:localhost}
+secondApp:
+  url: ${SECOND_URL:http://localhost:8485}
+  name: ${SECOND_NAME:localhost}
 topic:
   json:
     name: t.food.order

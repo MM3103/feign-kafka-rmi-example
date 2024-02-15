@@ -36,7 +36,6 @@ services:
       - kafka-net
     ports:
       - "2181:2181"
-
   kafka:
     image: obsidiandynamics/kafka
     container_name: kafka
@@ -55,7 +54,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
-
   kafdrop:
     image: obsidiandynamics/kafdrop
     container_name: kafdrop
@@ -68,7 +66,6 @@ services:
       KAFKA_BROKERCONNECT: "kafka:29092"
     depends_on:
       - "kafka"
-
   keycloak-dev:
     image: jboss/keycloak:16.1.0
     ports:
@@ -82,5 +79,36 @@ services:
       - "-Dkeycloak.import=/tmp/keycloak/realm.json"
     volumes:
       - ./keycloak:/tmp/keycloak
+    networks:
+      - kafka-net
+  feign-kafka-rmi-first-app:
+    build: './feign-kafka-rmi-first-app'
+    ports:
+      - 8484:8484
+    environment:
+      - FIRST_NAME=feign-kafka-rmi-first-app
+      - SECOND_URL=http://feign-kafka-rmi-second-app:8485
+      - SECOND_NAME:feign-kafka-rmi-second-app
+      - KAFKA_SERVER=kafka:9092
+    depends_on:
+      - keycloak-dev
+      - kafka
+      - zookeeper
+      - feign-kafka-rmi-second-app
+    networks:
+      - kafka-net
+  feign-kafka-rmi-second-app:
+    build: './feign-kafka-rmi-second-app'
+    ports:
+      - 8485:8485
+    environment:
+      - KEYCLOAK_URL=http://keycloak-dev:8080/auth
+      - KEYCLOAK_REALM=my_realm
+      - KEYCLOAK_RESOURCE=my_client
+      - KAFKA_SERVER=kafka:9092
+    depends_on:
+      - keycloak-dev
+      - kafka
+      - zookeeper
     networks:
       - kafka-net
